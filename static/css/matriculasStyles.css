@@ -1,0 +1,16 @@
+.matriculas_container {
+  width: 50%;
+}
+
+.matriculas_container p {
+  background-color: fuchsia;
+  text-align: center;
+}
+
+.lista_de_matriculas {
+  background-color: tomato;
+}
+
+.adicionar_matriculas {
+  background-color: peru;
+}

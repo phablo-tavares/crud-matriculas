@@ -1,0 +1,115 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/generalStyles.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/alunosStyles.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/escolasStyles.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/matriculasStyles.css' %}" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meu Projeto</title>
+  </head>
+
+  <body>
+    <div class="alunos_container">
+      <p class="generalPadding">Nome dos Alunos</p>
+
+      <ul class="lista_de_alunos generalPadding">
+        {% for aluno in alunos %}
+        <li>
+          {{aluno.nome}}
+          <div class="links_container">
+            <a href="/editar-aluno/{{aluno.id}}">Editar</a> |
+            <a href="/excluir-aluno/{{aluno.id}}">Excluir</a>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+
+      <form class="adicionar_alunos generalPadding" action="inserir-aluno" method="post">
+        {% csrf_token %}
+        <label for="campo_nome_do_aluno">Nome: </label>
+        <input
+          name="campo_nome_do_aluno"
+          type="text"
+          id="campo_nome_do_aluno"
+          placeholder="Ex: Pedro Lucas"
+        />
+        <input type="submit" value="Adicionar Aluno" class="margin_left_auto" />
+      </form>
+    </div>
+
+    <div class="escolas_container">
+      <p class="generalPadding">Dados das Escolas</p>
+
+      <ul class="lista_de_escolas generalPadding">
+        {% for escola in escolas %}
+        <li>
+          {{escola.nome}} - {{escola.tipo}}
+          <div class="links_container">
+            <a href="/editar-escola/{{escola.id}}">Editar</a> |
+            <a href="/excluir-escola/{{escola.id}}">Excluir</a>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+
+      <form class="adicionar_escolas generalPadding" action="inserir-escola" method="post">
+        {% csrf_token %}
+        <label for="campo_nome_da_escola">Nome: </label>
+        <input
+          type="text"
+          id="campo_nome_da_escola"
+          name="campo_nome_da_escola"
+          placeholder="Ex: Colégio Expressão"
+        />
+        <label for="campo_tipo_da_escola">Tipo: </label>
+        <input
+          type="text"
+          id="campo_tipo_da_escola"
+          name="campo_tipo_da_escola"
+          placeholder="Ex: Ensino Médio"
+        />
+        <input type="submit" value="Adicionar Escola" class="margin_left_auto" />
+      </form>
+    </div>
+
+    <div class="matriculas_container">
+      <p class="generalPadding">Matriculas</p>
+
+      <ul class="lista_de_matriculas generalPadding">
+        {% for matricula in matriculas %}
+        <li>
+          {{matricula.aluno.nome}} - {{matricula.escola.nome}}
+          <div class="links_container">
+            <a href="/editar-matricula/{{matricula.numero_de_matricula}}">Editar</a> |
+            <a href="/excluir-matricula/{{matricula.numero_de_matricula}}">Excluir</a>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+
+      <form class="adicionar_matriculas generalPadding" action="inserir-matricula" method="post">
+        {% csrf_token %}
+
+        <select name="aluno_id" id="aluno" required>
+          {% for aluno in alunos %}
+          <option value="{{aluno.id}}">{{aluno.nome}}</option>
+          {% endfor %}
+        </select>
+
+        <select name="escola_id" id="escola" required>
+          {% for escola in escolas %}
+          <option value="{{escola.id}}">{{escola.nome}}</option>
+          {% endfor %}
+        </select>
+
+        <input type="submit" value="Cadastrar Aluno na Escola" class="margin_left_auto" />
+      </form>
+    </div>
+  </body>
+</html>

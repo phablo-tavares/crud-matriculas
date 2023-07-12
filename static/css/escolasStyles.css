@@ -1,0 +1,16 @@
+.escolas_container {
+  width: 40%;
+}
+
+.escolas_container p {
+  background-color: darkorange;
+  text-align: center;
+}
+
+.lista_de_escolas {
+  background-color: forestgreen;
+}
+
+.adicionar_escolas {
+  background-color: dodgerblue;
+}

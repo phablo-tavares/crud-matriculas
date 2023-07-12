@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/generalStyles.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/alunosStyles.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/escolasStyles.css' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editar Aluno</title>
+  </head>
+  <body>
+    <form class="adicionar_alunos generalPadding" action="/salvar-edicao-aluno" method="post">
+      {% csrf_token %}
+      <label for="campo_nome_do_aluno">Nome: </label>
+      <input type="text" name="id" value="{{aluno.id}}" style="display: none" />
+      <input
+        name="campo_nome_do_aluno"
+        type="text"
+        id="campo_nome_do_aluno"
+        placeholder="Ex: Pedro Lucas"
+        value="{{aluno.nome}}"
+      />
+      <input type="submit" value="Salvar Edição no Aluno" />
+    </form>
+  </body>
+</html>

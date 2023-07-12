@@ -1,0 +1,16 @@
+.alunos_container {
+  width: 30%;
+}
+
+.alunos_container p {
+  background-color: brown;
+  text-align: center;
+}
+
+.lista_de_alunos {
+  background-color: blueviolet;
+}
+
+.adicionar_alunos {
+  background-color: darkgray;
+}
