@@ -1,0 +1,10 @@
+
+  {% for aluno in alunos %}
+  <li>
+    {{aluno.nome}}
+    <div class="links_container">
+      <button onclick="editarAlunoViaAjax('/editar-aluno-ajax/{{aluno.id}}','{{ csrf_token }}','{{aluno.id}}' )" type="button">Editar</button>
+      <button onclick="excluirAlunoViaAjax('/excluir-aluno-ajax/{{aluno.id}}','{{ csrf_token }}','{{aluno.id}}' )" type="button">Excluir</button>
+    </div>
+  </li>
+  {% endfor %}

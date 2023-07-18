@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="{% static 'css/escolasStyles.css' %}" />
     <link rel="stylesheet" href="{% static 'css/matriculasStyles.css' %}" />
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="{% static 'javascript/script.js' %}"></script>
+    <script src="{% static 'javascript/jquery.js' %}"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meu Projeto</title>
   </head>
@@ -18,19 +22,20 @@
     <div class="alunos_container">
       <p class="generalPadding">Nome dos Alunos</p>
 
-      <ul class="lista_de_alunos generalPadding">
+      <ul class="lista_de_alunos generalPadding" id="lista_de_alunos">
         {% for aluno in alunos %}
         <li>
           {{aluno.nome}}
           <div class="links_container">
-            <a href="/editar-aluno/{{aluno.id}}">Editar</a> |
-            <a href="/excluir-aluno/{{aluno.id}}">Excluir</a>
+            <button onclick="editarAlunoViaAjax('/editar-aluno-ajax/{{aluno.id}}','{{ csrf_token }}','{{aluno.id}}' )" type="button">Editar</button>
+            <button onclick="excluirAlunoViaAjax('/excluir-aluno-ajax/{{aluno.id}}','{{ csrf_token }}','{{aluno.id}}' )" type="button">Excluir</button>
           </div>
         </li>
         {% endfor %}
       </ul>
 
-      <form class="adicionar_alunos generalPadding" action="inserir-aluno" method="post">
+      <!--<form class="adicionar_alunos generalPadding" action="inserir-aluno" method="post">-->
+      <form class="adicionar_alunos generalPadding" method="post">
         {% csrf_token %}
         <label for="campo_nome_do_aluno">Nome: </label>
         <input
@@ -39,20 +44,27 @@
           id="campo_nome_do_aluno"
           placeholder="Ex: Pedro Lucas"
         />
-        <input type="submit" value="Adicionar Aluno" class="margin_left_auto" />
+        <input
+          type="submit"
+          value="Adicionar Aluno"
+          class="margin_left_auto"
+          id="inserir_aluno"
+        />
+        
       </form>
+      <button onclick="adicionarAlunoViaAjax('/inserir-aluno-ajax','{{ csrf_token }}')" type="button">enviar aluno ajax</button>
     </div>
 
     <div class="escolas_container">
       <p class="generalPadding">Dados das Escolas</p>
 
-      <ul class="lista_de_escolas generalPadding">
+      <ul class="lista_de_escolas generalPadding" id="lista_de_escolas">
         {% for escola in escolas %}
         <li>
           {{escola.nome}} - {{escola.tipo}}
           <div class="links_container">
-            <a href="/editar-escola/{{escola.id}}">Editar</a> |
-            <a href="/excluir-escola/{{escola.id}}">Excluir</a>
+            <button onclick="editarEscolaViaAjax('/editar-escola-ajax/{{escola.id}}','{{ csrf_token }}','{{escola.id}}' )" type="button">Editar</button>
+            <button onclick="excluirEscolaViaAjax('/excluir-escola-ajax/{{escola.id}}','{{ csrf_token }}','{{escola.id}}' )" type="button">Excluir</button>
           </div>
         </li>
         {% endfor %}
@@ -76,18 +88,20 @@
         />
         <input type="submit" value="Adicionar Escola" class="margin_left_auto" />
       </form>
+      <button onclick="adicionarEscolaViaAjax('/inserir-escola-ajax','{{ csrf_token }}')" type="button">enviar escola ajax</button>
+  
     </div>
 
     <div class="matriculas_container">
       <p class="generalPadding">Matriculas</p>
 
-      <ul class="lista_de_matriculas generalPadding">
+      <ul class="lista_de_matriculas generalPadding" id="lista_de_matriculas">
         {% for matricula in matriculas %}
         <li>
           {{matricula.aluno.nome}} - {{matricula.escola.nome}}
           <div class="links_container">
-            <a href="/editar-matricula/{{matricula.numero_de_matricula}}">Editar</a> |
-            <a href="/excluir-matricula/{{matricula.numero_de_matricula}}">Excluir</a>
+            <button onclick="editarMatriculaViaAjax('/editar-matricula-ajax/{{matricula.numero_de_matricula}}','{{ csrf_token }}','{{matricula.numero_de_matricula}}' )" type="button">Editar</button> | 
+            <button onclick="excluirMatriculaAjax('/excluir-matricula-ajax/{{matricula.numero_de_matricula}}','{{ csrf_token }}','{{matricula.numero_de_matricula}}' )" type="button">Excluir</button>
           </div>
         </li>
         {% endfor %}
@@ -110,6 +124,16 @@
 
         <input type="submit" value="Cadastrar Aluno na Escola" class="margin_left_auto" />
       </form>
+
+      
+      <button onclick="adicionarMatriculaViaAjax('/inserir-matricula-ajax','{{ csrf_token }}')" type="button">enviar matricula ajax</button>
+      
+
+      <div id="edicao_matricula"></div>
+
+
+
+
     </div>
   </body>
 </html>

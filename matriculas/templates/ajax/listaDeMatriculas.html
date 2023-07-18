@@ -1,0 +1,9 @@
+{% for matricula in matriculas %}
+<li>
+  {{matricula.aluno.nome}} - {{matricula.escola.nome}}
+  <div class="links_container">
+    <button onclick="editarMatriculaViaAjax('/editar-matricula-ajax/{{matricula.numero_de_matricula}}','{{ csrf_token }}','{{matricula.numero_de_matricula}}' )" type="button">Editar</button> | 
+    <button onclick="excluirMatriculaAjax('/excluir-matricula-ajax/{{matricula.numero_de_matricula}}','{{ csrf_token }}','{{matricula.numero_de_matricula}}' )" type="button">Excluir</button>
+  </div>
+</li>
+{% endfor %}

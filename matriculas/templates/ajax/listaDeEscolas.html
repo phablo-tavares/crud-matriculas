@@ -1,0 +1,10 @@
+
+    {% for escola in escolas %}
+    <li>
+      {{escola.nome}} - {{escola.tipo}}
+      <div class="links_container">
+        <button onclick="editarEscolaViaAjax('/editar-escola-ajax/{{escola.id}}','{{ csrf_token }}','{{escola.id}}' )" type="button">Editar</button>
+        <button onclick="excluirEscolaViaAjax('/excluir-escola-ajax/{{escola.id}}','{{ csrf_token }}','{{escola.id}}' )" type="button">Excluir</button>
+      </div>
+    </li>
+    {% endfor %}
